@@ -16,7 +16,7 @@ public class CreateUser {
     }
 
     @Step("Авторизоваться под созданным пользователем")
-    public Response authUser(UserCredentials creds) {
+    public static Response authUser(UserCredentials creds) {
         return given()
                 .header("Content-type", "application/json")
                 .body(creds)

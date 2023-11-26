@@ -19,7 +19,7 @@ public class CreateUserTest extends BaseTest {
     public void createNewUserTest() {
 
         user = UserGenerator.createNewUser();
-        Response response = createUser.createUser(user);
+        Response response = CreateUser.createUser(user);
         token = response.then().extract().path("accessToken").toString();
         response.then().assertThat().statusCode(SC_OK)
                 .body("success", equalTo(true))
@@ -32,7 +32,7 @@ public class CreateUserTest extends BaseTest {
     @DisplayName("Создать пользователя без email")
     public void createUserWithNoEmailTest() {
         user = UserGenerator.createCourierWithNoEmail();
-        Response response = createUser.createUser(user);
+        Response response = CreateUser.createUser(user);
         response.then().assertThat().statusCode(SC_FORBIDDEN).body("success", equalTo(false));
     }
 
@@ -40,7 +40,7 @@ public class CreateUserTest extends BaseTest {
     @DisplayName("Создать пользователя без пароля")
     public void createUserWithNoPasswordTest() {
         user = UserGenerator.createCourierWithNoPassword();
-        Response response = createUser.createUser(user);
+        Response response = CreateUser.createUser(user);
         response.then().assertThat().statusCode(SC_FORBIDDEN).body("success", equalTo(false));
     }
 
@@ -48,7 +48,7 @@ public class CreateUserTest extends BaseTest {
     @DisplayName("Создать пользователя без имени")
     public void createUserWithNoNameTest() {
         user = UserGenerator.createCourierWithNoName();
-        Response response = createUser.createUser(user);
+        Response response = CreateUser.createUser(user);
         response.then().assertThat().statusCode(SC_FORBIDDEN).body("success", equalTo(false));
     }
 
@@ -56,8 +56,8 @@ public class CreateUserTest extends BaseTest {
     @DisplayName("Создать пользователя, который уже был зарегистрирован")
     public void createAlreadyCreatedUserTest() {
         user = UserGenerator.createNewUser();
-        createUser.createUser(user);
-        Response response = createUser.createUser(user);
+        CreateUser.createUser(user);
+        Response response = CreateUser.createUser(user);
         response.then().assertThat().statusCode(SC_FORBIDDEN).body("success", equalTo(false));
     }
 

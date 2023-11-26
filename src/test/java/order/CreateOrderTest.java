@@ -14,13 +14,11 @@ import static org.apache.http.HttpStatus.*;
 
 public class CreateOrderTest extends BaseTestLogIn {
 
-    private CreateOrder createOrder;
     private Order order;
 
     @Test
     @DisplayName("Создать заказ с авторизацией")
     public void createOrderWithAuthTest() {
-        createOrder = new CreateOrder();
         order = new Order();
         Response response = CreateOrder.getIngredients();
         List<String> list = response.then().extract().path("data._id");
@@ -36,7 +34,6 @@ public class CreateOrderTest extends BaseTestLogIn {
     @Test
     @DisplayName("Создать заказ без авторизации")
     public void createOrderWithNoAuthTest() {
-        createOrder = new CreateOrder();
         order = new Order();
         Response response = CreateOrder.getIngredients();
         List<String> list = response.then().extract().path("data._id");
@@ -51,7 +48,6 @@ public class CreateOrderTest extends BaseTestLogIn {
     @Test
     @DisplayName("Создать заказ с неверным хэшем ингредиентов с авторизацией")
     public void createOrderWithAuthInvalidHashTest() {
-        createOrder = new CreateOrder();
         order = new Order();
         CreateOrder.getIngredients();
         List<String> ingredients = order.getIngredients();
@@ -63,7 +59,6 @@ public class CreateOrderTest extends BaseTestLogIn {
     @Test
     @DisplayName("Создать заказ с авторизацией без ингридиентов")
     public void createOrderWithAuthNoIngredientsTest() {
-        createOrder = new CreateOrder();
         order = new Order();
         Response responseCreateOrder = CreateOrder.createOrderWhileLoggedIn(order, token);
         responseCreateOrder.then().assertThat().statusCode(SC_BAD_REQUEST).body("success", equalTo(false));

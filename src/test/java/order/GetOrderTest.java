@@ -10,13 +10,11 @@ import java.util.List;
 import static org.apache.http.HttpStatus.*;
 
 public class GetOrderTest extends BaseTestLogIn {
-    private CreateOrder createOrder;
     private Order order;
 
     @Test
     @DisplayName("Получить инфо о заказе без авторизации")
     public void getOrderWithNoAuthTest() {
-        createOrder = new CreateOrder();
         order = new Order();
         Response response = CreateOrder.getIngredients();
         List<String> list = response.then().extract().path("data._id");
@@ -31,7 +29,6 @@ public class GetOrderTest extends BaseTestLogIn {
     @Test
     @DisplayName("Получить инфо о заказе с авторизацией")
     public void getOrderAuthTest() {
-        createOrder = new CreateOrder();
         order = new Order();
         Response response = CreateOrder.getIngredients();
         List<String> list = response.then().extract().path("data._id");
